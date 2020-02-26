@@ -1,0 +1,25 @@
+#sudo sysctl -w vm.max_map_count=262144
+version: '3'
+services:
+    jaeger-server:
+        image: 'jaegertracing/all-in-one:latest'
+        ports: 
+            - 16686:16686
+    elk-server:
+        build:
+            context: .
+            dockerfile: Dockerfile-elk
+        ports:
+            - 5601:5601
+            - 9200:9200
+            - 5044:5044
+        volumes:
+            - logvolume:/logs
+    app:
+        build: .
+        ports: 
+            - 8080:8080
+        volumes:
+            - logvolume:/logs
+volumes: 
+    logvolume:

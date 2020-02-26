@@ -1,0 +1,4 @@
+FROM sebp/elk
+
+COPY ./logstash.conf /opt/logstash/config
+COPY ./logstash.conf /etc/logstash/conf.d
